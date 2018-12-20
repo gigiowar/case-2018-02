@@ -6,8 +6,7 @@ module.exports = function (app){
 		.get(controller.listaMedicamentos)
 		.post(controller.adicionaMedicamento);
 
-	// app.route("/medicamentos/:id")
-	// 	.get(controller.obtemUser)
-	// 	.delete(controller.removeUser);
+	app.route("/medicamentos/teste")
+		.get(controller.teste);
 
 };

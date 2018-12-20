@@ -1,5 +1,6 @@
 //Remover essa linha quando houver o Sequelize
 var db = require("../../config/database.js");
+var medicamentoM = require('../models/medicamento.js')
 
 module.exports = function (app){
 
@@ -7,68 +8,78 @@ module.exports = function (app){
 
 	var controller = {};
 
+	controller.teste = function (req, res) {
+
+		// var lista = medicamentoM.teste(req, res);
+
+		console.log('lista', medicamentoM.teste());
+
+		res.json('{lista:lista}');
+	
+	}
+
 	controller.listaMedicamentos = function (req, res) {
 
-        var pathname = req._parsedUrl.pathname.split('/');
+		var pathname = req._parsedUrl.pathname.split('/');
 
-        var section = pathname[1];
+		var section = pathname[1];
 
-        var results = db.query('SELECT * from ??', [section], function (error, results, fields) {
+		var results = db.query('SELECT * from medicamentos', [section], function (error, results, fields) {
 
-            if (error) {
+			if (error) {
 
-                var apiResult = {};
-                
-                apiResult.meta = {
-                    table: section,
-                    type: "collection",
-                    total: 0
-                }
+				var apiResult = {};
 
-                apiResult.data = [];
-                
-                res.status(500).json(apiResult);
-                
-            }
-            
-            var resultJson = JSON.stringify(results);
-            resultJson = JSON.parse(resultJson);
-            var apiResult = {};
-            apiResult.data = resultJson;
+				apiResult.meta = {
+					table: section,
+					type: "collection",
+					total: 0
+				}
 
-            res.json(apiResult);
-        });
-    }
+				apiResult.data = [];
+
+				res.status(500).json(apiResult);
+
+			}
+
+			var resultJson = JSON.stringify(results);
+			resultJson = JSON.parse(resultJson);
+			var apiResult = {};
+			apiResult.data = resultJson;
+
+			res.json(apiResult);
+		});
+	}
 
 	var getInteracaoMedicamentosa = function(data, callback){
 
-	      var sql = "SELECT * FROM interacao_medicamentosa WHERE (id_farmaco1 = 1 AND id_farmaco2 = 2)";
+		var sql = "SELECT * FROM interacao_medicamentosa WHERE (id_farmaco1 = 1 AND id_farmaco2 = 2)";
 
-	      db.query(sql, function(err, results){
-	            if (err){ 
-	              throw err;
-	            }
+		db.query(sql, function(err, results){
+			if (err){ 
+				throw err;
+			}
 
-	            return callback(results);
-	    });
+			return callback(results);
+		});
 	}
 
 	var getFarmaco = function(data, callback){
 
-	      var sql = "SELECT * FROM farmacos WHERE id_medicamento = "+ data +" ";
+		var sql = "SELECT * FROM farmacos WHERE id_medicamento = "+ data +" ";
 
-	      db.query(sql, function(err, results){
-	            if (err){ 
-	              throw err;
-	            }
+		db.query(sql, function(err, results){
+			if (err){ 
+				throw err;
+			}
 
-	            return callback(results);
-	    });
+			return callback(results);
+		});
 	}
 
-    controller.adicionaMedicamento = function (req,res){
+	controller.adicionaMedicamento = function (req,res){
 
-    	var id_medicamento = req.body.id_medicamento
+		var id_medicamento = req.body.id_medicamento
 
     	//TODO criar a estrutura no banco de dados
     	var userMedicamentos = {
@@ -76,9 +87,16 @@ module.exports = function (app){
     		"medicamentos": [1]
     	}
 
+    	var arrFarmacosUser = [];
+
     	userMedicamentos.medicamentos.forEach(function(medicamento){
 
-			getFarmaco(id_medicamento, function(result){
+    		// arrFarmacosUser.push(medicamento);
+
+    		getFarmaco(medicamento, function(result){
+
+    			console.log('result', result);
+
 				// Pequeno callback hell, vai ser evitado quando usarmos o sequelize
 				result.forEach(function(re){
 					getInteracaoMedicamentosa(result, function(result){
@@ -86,12 +104,12 @@ module.exports = function (app){
 					});
 				})
 				
-		 	}); 
+			}); 
 
     	});
 
-	};
+    };
 
-	return controller;
+    return controller;
 
 };
