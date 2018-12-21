@@ -5,7 +5,7 @@ git clone https://github.com/gigiowar/case-2018-02.git
 ## Requisitos
 Instalar o MYSQL
 
-Criar um banco de dados com o nome medical_prescription
+Criar um banco de dados com o nome 'medical_prescription'
 
 ### Sem o docker
 npm install
