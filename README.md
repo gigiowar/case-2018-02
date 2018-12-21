@@ -4,6 +4,7 @@ git clone https://github.com/gigiowar/case-2018-02.git
 
 ### Sem o docker
 npm install
+
 node server.js
 
 ### Com o docker
