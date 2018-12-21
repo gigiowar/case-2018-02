@@ -1,8 +1,19 @@
-module.exports = function (app){
-
-	var controller = app.controllers.user;
-
-	app.route("/users")
-		.get(controller.teste);
-
-};
+module.exports = function(app) {
+ 
+    const users = require('../controllers/user.js');
+ 
+    // Create a new User
+    app.post('/api/users', users.create);
+ 
+    // Retrieve all User
+    app.get('/api/users', users.findAll);
+ 
+    // Retrieve a single User by Id
+    app.get('/api/users/:userId', users.findById);
+ 
+    // Update a User with Id
+    app.put('/api/users/:userId', users.update);
+ 
+    // Delete a User with Id
+    app.delete('/api/users/:userId', users.delete);
+}

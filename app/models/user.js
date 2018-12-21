@@ -1,12 +1,15 @@
-var sequelize = require("../../config/sequelize.js");
-
-module.exports = (sequelize, type) => {
-    return sequelize.define('user', {
-        id: {
-          type: type.INTEGER,
-          primaryKey: true,
-          autoIncrement: true
-        },
-        name: type.STRING
-    })
+module.exports = (sequelize, Sequelize) => {
+	const User = sequelize.define('user', {
+	  firstname: {
+		type: Sequelize.STRING
+	  },
+	  lastname: {
+		type: Sequelize.STRING
+	  },
+	  age: {
+		  type: Sequelize.INTEGER
+	  }
+	});
+	
+	return User;
 }

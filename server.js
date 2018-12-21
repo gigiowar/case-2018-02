@@ -1,38 +1,24 @@
-// var http = require("http")
-// var app = require("./config/express")()
-// const bodyParser = require('body-parser')
-// const { User } = require('./config/sequelize')
-
-// require("./config/database.js");
-
-// http.createServer(app).listen(app.get("port"),function(){
-// 	console.log("Express Server on port" + app.get("port"));
-// });
-
-// const express = require('express')
-// const bodyParser = require('body-parser')
-// const { User } = require('./config/sequelize')
-
-// const app = express()
-// app.use(bodyParser.json())
-
-// const port = 3000
-// app.listen(port, () => {
-//     console.log(`Running on http://localhost:${port}`)
-// })
-
-const express = require('express')
-const bodyParser = require('body-parser')
-const { User } = require('./config/sequelize')
-
-const app = express()
+var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
 app.use(bodyParser.json())
 
-app.get('/api/users', (req, res) => {
-    User.findAll().then(users => res.json(users))
-})
+const db = require('./app/config/db.config.js');
+  
+// force: true will drop the table if it already exists
+db.sequelize.sync({force: true}).then(() => {
+  console.log('Drop and Resync with { force: true }');
+});
 
-const port = 3000
-app.listen(port, () => {
-    console.log(`Running on http://localhost:${port}`)
+require('./app/routes/user.js')(app);
+require('./app/routes/medicine.js')(app);
+require('./app/routes/drug.js')(app);
+ 
+// Create a Server
+var server = app.listen(8080, function () {
+ 
+  var host = server.address().address
+  var port = server.address().port
+ 
+  console.log("App listening at http://%s:%s", host, port)
 })
