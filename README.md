@@ -7,7 +7,9 @@ npm install
 node server.js
 
 ### Com o docker
+
 executar o docker build Ex:"docker build -t medicine_prescription ."
+
 executar o docker run Ex:"docker run -p 49160:8080 -d medicine_prescription"
 
 ## TODO List
