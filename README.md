@@ -6,10 +6,10 @@ git clone https://github.com/gigiowar/case-2018-02.git
 npm install
 node server.js
 
-###Com o docker
+### Com o docker
 executar o docker build Ex:"docker build -t medicine_prescription ."
 executar o docker run Ex:"docker run -p 49160:8080 -d medicine_prescription"
 
-##TODO List
+## TODO List
 -Criar o CRUD do users_medicines
 -Terminar a lógica da prescricao médica
