@@ -4,6 +4,9 @@ module.exports = function(app) {
  
     // Create a new Medicine
     app.post('/api/medicines', medicines.create);
+
+    // Create a new Medicine
+    app.post('/api/users/addDrug', medicines.addDrug);      
  
     // Retrieve all Medicine
     app.get('/api/medicines', medicines.findAll);

@@ -22,5 +22,9 @@ db.sequelize = sequelize;
 //Models/tables
 db.users = require('../models/user.js')(sequelize, Sequelize);
 db.medicines = require('../models/medicine.js')(sequelize, Sequelize);
+db.drugs = require('../models/drug.js')(sequelize, Sequelize);
+db.userMedicines = require('../models/userMedicine.js')(sequelize, Sequelize);
+db.medicineDrugs = require('../models/medicineDrug.js')(sequelize, Sequelize);
+
 
 module.exports = db;

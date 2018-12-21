@@ -1,5 +1,54 @@
 const db = require('../config/db.config.js');
 const User = db.users;
+const UserMedicine = db.userMedicines;
+const Medicine = db.medicines;
+const Drug = db.drugs;
+
+function getUserMedicines(idUser) {
+  	UserMedicine.find({
+	  	where: {
+	    	idUser: idUser
+	  	}
+		}).then(user => {
+  	return user.get();
+	});
+}
+
+function getMedicineDrugs(idMedicine) {
+
+	let drugList = {};
+
+	Drug.findAll({
+	  where: {
+	    medicineId: idMedicine
+	  }
+	}).then(drugs => {
+
+		drugList = drugs;
+
+	});
+
+	return drugList;
+
+}
+
+function verifyMedicineDrugs(reqObj ,resObj) {
+
+	let idUser = reqObj.idUser;
+	let idMedicine = reqObj.idMedicine;
+
+	UserMedicine.findAll({
+	  	where: {
+	    	idUser: idUser
+	  	}
+		}).then(data => {
+
+		r = data.toJSON;
+
+		console.log('REREREREER', r)
+	});
+
+}	
 
 // Post a User
 exports.create = (req, res) => {	
@@ -11,6 +60,24 @@ exports.create = (req, res) => {
 	}).then(user => {		
 		// Send created user to client
 		res.send(user);
+	});
+};
+
+// Add a Medicine
+exports.addMedicine = (req, res) => {
+
+	verifyMedicineDrugs(req.body, res);
+
+	// Save to MySQL database
+	UserMedicine.create({  
+	  idUser: req.body.idUser,
+	  idMedicine: req.body.idMedicine
+	}).then(userMedicine => {	
+
+		// console.log('teste2',userMedicine);
+
+		// Send created medicine to client
+		res.send(userMedicine);
 	});
 };
  

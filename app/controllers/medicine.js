@@ -11,6 +11,21 @@ exports.create = (req, res) => {
 		res.send(medicine);
 	});
 };
+
+// Add a Medicine
+exports.addDrug = (req, res) => {	
+
+	console.log(req.body)
+
+	// Save to MySQL database
+	MedicineDrug.create({  
+	  idUser: req.body.idUser,
+	  idMedicine: req.body.idMedicine
+	}).then(medicineDrug => {		
+		// Send created medicine to client
+		res.send(medicineDrug);
+	});
+};
  
 // FETCH all Medicines
 exports.findAll = (req, res) => {
