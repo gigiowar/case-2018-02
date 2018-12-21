@@ -2,18 +2,18 @@ module.exports = function(app) {
  
     const drugs = require('../controllers/drug.js');
  
-    // Create a new Medicine
+    // Create a new Drug
     app.post('/api/drugs', drugs.create);
  
-    // Retrieve all Medicine
+    // Retrieve all Drug
     app.get('/api/drugs', drugs.findAll);
  
-    // Retrieve a single Medicine by Id
+    // Retrieve a single Drug by Id
     app.get('/api/drugs/:userId', drugs.findById);
  
-    // Update a Medicine with Id
+    // Update a Drug with Id
     app.put('/api/drugs/:userId', drugs.update);
  
-    // Delete a Medicine with Id
+    // Delete a Drug with Id
     app.delete('/api/drugs/:userId', drugs.delete);
 }
