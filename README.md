@@ -13,5 +13,6 @@ executar o docker build Ex:"docker build -t medicine_prescription ."
 executar o docker run Ex:"docker run -p 49160:8080 -d medicine_prescription"
 
 ## TODO List
--Criar o CRUD do users_medicines
--Terminar a lógica da prescricao médica
+Criar o CRUD do users_medicines
+
+Terminar a lógica da prescricao médica
