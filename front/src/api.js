@@ -58,4 +58,19 @@ export default {
   deleteDrug(id) {
     return this.execute('delete', `/api/drugs/${id}`);
   },
+  getUserMedicines() {
+    return this.execute('get', '/api/userMedicines');
+  },
+  getUserMedicine(id) {
+    return this.execute('get', `/api/userMedicines/${id}`);
+  },
+  createUserMedicine(data) {
+    return this.execute('post', '/api/userMedicines', data);
+  },
+  updateUserMedicine(id, data) {
+    return this.execute('put', `/api/userMedicines/${id}`, data);
+  },
+  deleteUserMedicine(id) {
+    return this.execute('delete', `/api/userMedicines/${id}`);
+  },
 };
