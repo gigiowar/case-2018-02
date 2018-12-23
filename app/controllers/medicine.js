@@ -2,7 +2,10 @@ const db = require('../config/db.config.js');
 const Medicine = db.medicines;
 
 // Post a Medicine
-exports.create = (req, res) => {	
+exports.create = (req, res) => {
+
+	console.log(req.body)
+
 	// Save to MySQL database
 	Medicine.create({  
 	  medname: req.body.medname
@@ -37,16 +40,16 @@ exports.findAll = (req, res) => {
 
 // Find a Medicine by Id
 exports.findById = (req, res) => {	
-	Medicine.findById(req.params.medicineId).then(medicine => {
+	Medicine.findById(req.params.id).then(medicine => {
 		res.send(medicine);
 	})
 };
  
 // Update a Medicine
 exports.update = (req, res) => {
-	const id = req.params.medicineId;
+	const id = req.params.id;
 	Medicine.update( { medname: req.body.medname }, 
-					 { where: {id: req.params.medicineId} }
+					 { where: {id: req.params.id} }
 				   ).then(() => {
 					 res.status(200).send("updated successfully a medicine with id = " + id);
 				   });
@@ -54,7 +57,7 @@ exports.update = (req, res) => {
  
 // Delete a Medicine by Id
 exports.delete = (req, res) => {
-	const id = req.params.medicineId;
+	const id = req.params.id;
 	Medicine.destroy({
 	  where: { id: id }
 	}).then(() => {

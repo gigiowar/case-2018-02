@@ -1,7 +1,11 @@
 var express = require('express');
+var cors = require('cors');
 var app = express();
 var bodyParser = require('body-parser');
-app.use(bodyParser.json())
+
+app.use(bodyParser.json());
+app.use(cors());
+app.options('*', cors());
 
 const db = require('./app/config/db.config.js');
   

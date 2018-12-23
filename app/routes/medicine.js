@@ -12,11 +12,11 @@ module.exports = function(app) {
     app.get('/api/medicines', medicines.findAll);
  
     // Retrieve a single Medicine by Id
-    app.get('/api/medicines/:userId', medicines.findById);
+    app.get('/api/medicines/:id', medicines.findById);
  
     // Update a Medicine with Id
-    app.put('/api/medicines/:userId', medicines.update);
+    app.put('/api/medicines/:id', medicines.update);
  
     // Delete a Medicine with Id
-    app.delete('/api/medicines/:userId', medicines.delete);
+    app.delete('/api/medicines/:id', medicines.delete);
 }

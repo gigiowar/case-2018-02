@@ -23,16 +23,16 @@ exports.findAll = (req, res) => {
 
 // Find a Drug by Id
 exports.findById = (req, res) => {	
-	Drug.findById(req.params.drugId).then(drug => {
+	Drug.findById(req.params.id).then(drug => {
 		res.send(drug);
 	})
 };
  
 // Update a Drug
 exports.update = (req, res) => {
-	const id = req.params.drugId;
+	const id = req.params.id;
 	Drug.update( { drugname: req.body.drugname, medicineid: req.body.medicineid }, 
-					 { where: {id: req.params.drugId} }
+					 { where: {id: req.params.id} }
 				   ).then(() => {
 					 res.status(200).send("updated successfully a drug with id = " + id);
 				   });
@@ -40,7 +40,7 @@ exports.update = (req, res) => {
  
 // Delete a Drug by Id
 exports.delete = (req, res) => {
-	const id = req.params.drugId;
+	const id = req.params.id;
 	Drug.destroy({
 	  where: { id: id }
 	}).then(() => {

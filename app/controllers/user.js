@@ -6,7 +6,31 @@ const Medicine = db.medicines;
 const Drug = db.drugs;
 const MedicineIntegration = db.medicineIntegrations;
 
+function teste(reqObj) {
 
+	// let idUser = reqObj.idUser;
+ //    var members = req.body.members;
+ //    models.sequelize.transaction(function (t) {
+ //        var promises = []
+ //        for (var i = 0; i < members.length; i++) {
+ //            var newPromise = models.User.create({'firstname':members[i], 'email':members[i], 'pending':true}, {transaction: t});
+ //           promises.push(newPromise);
+ //        };
+ //        return Promise.all(promises).then(function(users) {
+ //            var userPromises = [];
+ //            for (var i = 0; i < users.length; i++) {
+ //                userPromises.push(users[i].addInvitations([group], {transaction: t});
+ //            }
+ //            return Promise.all(userPromises);
+ //        });
+ //    }).then(function (result) {
+ //        console.log("YAY");
+ //    }).catch(function (err) {
+ //        console.log("NO!!!");
+ //        return next(err);
+ //    });
+
+}
 
 // Post a User
 exports.create = (req, res) => {	
@@ -99,16 +123,16 @@ exports.findAll = (req, res) => {
 
 // Find a User by Id
 exports.findById = (req, res) => {	
-	User.findById(req.params.userId).then(user => {
+	User.findById(req.params.id).then(user => {
 		res.send(user);
 	})
 };
  
 // Update a User
 exports.update = (req, res) => {
-	const id = req.params.userId;
+	const id = req.params.id;
 	User.update( { firstname: req.body.firstname, lastname: req.body.lastname, age: req.body.age }, 
-					 { where: {id: req.params.userId} }
+					 { where: {id: req.params.id} }
 				   ).then(() => {
 					 res.status(200).send("updated successfully a user with id = " + id);
 				   });
@@ -116,7 +140,7 @@ exports.update = (req, res) => {
  
 // Delete a User by Id
 exports.delete = (req, res) => {
-	const id = req.params.userId;
+	const id = req.params.id;
 	User.destroy({
 	  where: { id: id }
 	}).then(() => {

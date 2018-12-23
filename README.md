@@ -20,3 +20,7 @@ executar o docker run Ex:"docker run -p 49160:8080 -d medicine_prescription"
 
 ## TODO List
 Usar Promise.all para gerenciar melhor os requests de integracao medicamentosa
+
+Criar as relacoes das tabelas
+
+Tratamento de erros
