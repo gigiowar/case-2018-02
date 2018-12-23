@@ -5,6 +5,7 @@ import UsersManager from '@/components/UsersManager';
 import MedicinesManager from '@/components/MedicinesManager';
 import DrugsManager from '@/components/DrugsManager';
 import UserMedicinesManager from '@/components/UserMedicinesManager';
+import MedicineIntegrationsManager from '@/components/MedicineIntegrationsManager';
 
 Vue.use(Router);
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/userMedicines',
       name: 'Users Medicines',
       component: UserMedicinesManager,
+    },
+    {
+      path: '/medicineIntegrations',
+      name: 'Medicine Integrations',
+      component: MedicineIntegrationsManager,
     },
   ],
 });

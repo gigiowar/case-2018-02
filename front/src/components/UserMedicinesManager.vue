@@ -74,7 +74,11 @@ export default {
       if (this.model.id) {
         await api.updateUserMedicine(this.model.id, this.model);
       } else {
-        await api.createUserMedicine(this.model);
+        const warnings = await api.createUserMedicine(this.model);
+        if (warnings.length > 0) {
+          alert(JSON.stringify(warnings));
+        }
+        console.log(warnings);
       }
       this.model = {}; // reset form
       await this.refreshUserMedicines();

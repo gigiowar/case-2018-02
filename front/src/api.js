@@ -73,4 +73,19 @@ export default {
   deleteUserMedicine(id) {
     return this.execute('delete', `/api/userMedicines/${id}`);
   },
+  getMedicineIntegrations() {
+    return this.execute('get', '/api/medicineIntegrations');
+  },
+  getMedicineIntegration(id) {
+    return this.execute('get', `/api/medicineIntegrations/${id}`);
+  },
+  createMedicineIntegration(data) {
+    return this.execute('post', '/api/medicineIntegrations', data);
+  },
+  updateMedicineIntegration(id, data) {
+    return this.execute('put', `/api/medicineIntegrations/${id}`, data);
+  },
+  deleteMedicineIntegration(id) {
+    return this.execute('delete', `/api/medicineIntegrations/${id}`);
+  },
 };

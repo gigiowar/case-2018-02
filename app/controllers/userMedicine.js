@@ -69,9 +69,20 @@ exports.create = (req, res) => {
 
 			   	return findIntegrations(integrations, arrDrugs, 1, l).then((relatedWarnings) => 
 			   	{		  
-			   	 	console.log("integrations", integrations)		
+			   	 	if(integrations.length > 0){
+			   	 		res.send(integrations);	
+			   	 	} else {
+						// Save to MySQL database
+						UserMedicine.create({  
+						  idUser: idUser,
+						  idMedicine: idMedicine
+						}).then(userMedicine => {		
+							// Send created drug to client
+							res.send(false);
+						});			   	 		
+			   	 	}
+		
 			   		return integrations;
-			   		// res.send(relatedWarnings);
 
 			   	});
 			}

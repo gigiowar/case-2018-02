@@ -7,6 +7,7 @@
         <li>Crie 1 usuário</li>
         <li>Crie 2 medicamentos</li>
         <li>Crie um ou mais fármacos para estes medicamentos</li> 
+        <li>Crie as relacoes medicamentosas</li>
         <li>Adicione os medicamentos para este usuário</li>
       </ul>
     </div>

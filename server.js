@@ -22,6 +22,7 @@ require('./app/routes/user.js')(app);
 require('./app/routes/medicine.js')(app);
 require('./app/routes/drug.js')(app);
 require('./app/routes/userMedicine.js')(app);
+require('./app/routes/medicineIntegration.js')(app);
  
 // Create a Server
 var server = app.listen(8080, function () {
