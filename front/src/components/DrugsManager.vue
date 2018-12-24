@@ -91,7 +91,7 @@ export default {
       await this.refreshDrugs();
     },
     async deleteDrug(id) {
-      if (confirm('Are you sure you want to delete this drug?')) {
+      if (confirm('Are you sure you want to delete this drug?')) { // eslint-disable-line no-alert
         // if we are editing a drug we deleted, remove it from the form
         if (this.model.id === id) {
           this.model = {};

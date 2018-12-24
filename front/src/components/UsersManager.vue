@@ -85,7 +85,7 @@ export default {
       await this.refreshUsers();
     },
     async deleteUser(id) {
-      if (confirm('Are you sure you want to delete this user?')) {
+      if (confirm('Are you sure you want to delete this user?')) { // eslint-disable-line no-alert
         // if we are editing a user we deleted, remove it from the form
         if (this.model.id === id) {
           this.model = {};

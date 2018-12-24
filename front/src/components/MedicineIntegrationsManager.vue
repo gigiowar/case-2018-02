@@ -35,12 +35,12 @@
       <b-col lg="3">
         <b-card :title="(model.id ? 'Edit MedicineIntegration ID#' + model.id : 'New Medical Integration')">
           <form @submit.prevent="saveMedicineIntegration">
-            <b-form-group label="Drug1 ID">
-              <b-form-input type="number" v-model="model.idDrug1"></b-form-input>
+            <b-form-group label="Drug1">
+              <b-form-select v-model="model.idDrug1" :options="optionsDrg" class="mb-3" />
             </b-form-group>
-            <b-form-group label="Drug2 ID">
-              <b-form-input type="number" v-model="model.idDrug2"></b-form-input>
-            </b-form-group>
+            <b-form-group label="Drug2">
+              <b-form-select v-model="model.idDrug2" :options="optionsDrg" class="mb-3" />
+            </b-form-group>                           
             <b-form-group label="Name">
               <b-form-input type="text" v-model="model.name"></b-form-input>
             </b-form-group>  
@@ -66,6 +66,8 @@ export default {
       loading: false,
       medicineIntegrations: [],
       model: {},
+      optionsDrg: [],
+      drug: [],
     };
   },
   async created() {
@@ -75,6 +77,15 @@ export default {
     async refreshMedicineIntegrations() {
       this.loading = true;
       this.medicineIntegrations = await api.getMedicineIntegrations();
+      this.drugs = await api.getDrugs();
+      this.optionsDrg = [];
+      this.drugs.map((drug) => {
+        const obj = {};
+        obj.value = drug.id;
+        obj.text = drug.drugname;
+        this.optionsDrg.push(obj);
+        return true;
+      });
       this.loading = false;
     },
     async populateMedicineIntegrationToEdit(medicineIntegration) {
@@ -90,7 +101,7 @@ export default {
       await this.refreshMedicineIntegrations();
     },
     async deleteMedicineIntegration(id) {
-      if (confirm('Are you sure you want to delete this medicineIntegration?')) {
+      if (confirm('Are you sure you want to delete this medicineIntegration?')) { // eslint-disable-line no-alert
         // if we are editing a medicineIntegration we deleted, remove it from the form
         if (this.model.id === id) {
           this.model = {};

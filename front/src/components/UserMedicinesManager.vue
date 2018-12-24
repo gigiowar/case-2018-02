@@ -60,7 +60,6 @@ export default {
       model: {},
       optionsMed: [],
       medicines: [],
-      selected: {},
     };
   },
   async created() {
@@ -102,13 +101,13 @@ export default {
         if (warnings.length > 0) {
           alert('Ha uma ou mais condicoes medicamentosas de risco, olhe no console');// eslint-disable-line no-alert
         }
-        console.log(warnings);
+        console.log(warnings); // eslint-disable-line no-console
       }
       this.model = {}; // reset form
       await this.refreshUserMedicines();
     },
     async deleteUserMedicine(id) {
-      if (confirm('Are you sure you want to delete this userMedicine?')) {
+      if (confirm('Are you sure you want to delete this userMedicine?')) { // eslint-disable-line no-alert
         // if we are editing a userMedicine we deleted, remove it from the form
         if (this.model.id === id) {
           this.model = {};
