@@ -31,12 +31,12 @@
       <b-col lg="3">
         <b-card :title="(model.id ? 'Edit UserMedicine ID#' + model.id : 'New User Medicine')">
           <form @submit.prevent="saveUserMedicine">
-            <b-form-group label="User ID">
-              <b-form-input type="text" v-model="model.idUser"></b-form-input>
-            </b-form-group>
-            <b-form-group label="Medicine ID">
-              <b-form-input type="text" v-model="model.idMedicine"></b-form-input>
-            </b-form-group>  
+            <b-form-group label="User">
+              <b-form-select v-model="model.idUser" :options="optionsUser" class="mb-3" />
+            </b-form-group>             
+            <b-form-group label="Medicine">
+              <b-form-select v-model="model.idMedicine" :options="optionsMed" class="mb-3" />
+            </b-form-group>            
             <div>
               <b-btn type="submit" variant="success">Save User Medicine</b-btn>
             </div>
@@ -54,8 +54,13 @@ export default {
   data() {
     return {
       loading: false,
+      users: [],
+      optionsUser: [],
       userMedicines: [],
       model: {},
+      optionsMed: [],
+      medicines: [],
+      selected: {},
     };
   },
   async created() {
@@ -64,7 +69,26 @@ export default {
   methods: {
     async refreshUserMedicines() {
       this.loading = true;
+      this.users = await api.getUsers();
+      this.optionsUser = [];
+      this.users.map((usr) => {
+        const obj = {};
+        const userName = `${usr.firstname} ${usr.lastname}`;
+        obj.value = usr.id;
+        obj.text = userName;
+        this.optionsUser.push(obj);
+        return true;
+      });
       this.userMedicines = await api.getUserMedicines();
+      this.medicines = await api.getMedicines();
+      this.optionsMed = [];
+      this.medicines.map((med) => {
+        const obj = {};
+        obj.value = med.id;
+        obj.text = med.medname;
+        this.optionsMed.push(obj);
+        return true;
+      });
       this.loading = false;
     },
     async populateUserMedicineToEdit(userMedicine) {
@@ -76,7 +100,7 @@ export default {
       } else {
         const warnings = await api.createUserMedicine(this.model);
         if (warnings.length > 0) {
-          alert(JSON.stringify(warnings));
+          alert('Ha uma ou mais condicoes medicamentosas de risco, olhe no console');// eslint-disable-line no-alert
         }
         console.log(warnings);
       }

@@ -6,7 +6,7 @@ exports.create = (req, res) => {
 	// Save to MySQL database
 	Drug.create({  
 	  drugname: req.body.drugname,
-	  medicineId: req.body.medicineId
+	  medicineId: req.body.idMedicine
 	}).then(drug => {		
 		// Send created drug to client
 		res.send(drug);

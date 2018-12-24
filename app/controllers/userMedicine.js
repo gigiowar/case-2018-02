@@ -14,6 +14,25 @@ exports.create = (req, res) => {
 	UserMedicine.findAll({raw: true, where: { idUser: idUser }})
 	.then(data => {
 
+		// if(data.length === 0){
+		// 	// Save to MySQL database
+		// 	UserMedicine.create({  
+		// 	  idUser: idUser,
+		// 	  idMedicine: idMedicine
+		// 	}).then(userMedicine => {		
+		// 		// Send created drug to client
+		// 		res.send(userMedicine);
+		// 	});
+		// }
+
+		// console.log('DATAAA', data);
+
+		const obj = {};
+		obj.idMedicine = idMedicine;
+		data.push(obj);
+		
+		console.log('DATAAA', data);
+
 		let response = false;
 		let arrMed = [];
 
@@ -22,6 +41,8 @@ exports.create = (req, res) => {
 			objMedOp.medicineId = data[i].idMedicine;	
 			arrMed.push(objMedOp);
 		}
+
+		console.log('arrMed', arrMed);
 
 		Drug.findAll({raw: true, where: { [Op.or]: arrMed}})
 		.then(drugs => {
@@ -49,7 +70,20 @@ exports.create = (req, res) => {
 			        console.log('arrDrugs[l]', arrDrugs[l]);
 			        console.log('arrDrugs[i]', arrDrugs[i]);			        
 
-			        return MedicineIntegration.findAll({raw: true, where: { idDrug1: arrDrugs[l], idDrug2: arrDrugs[i] }})
+			        // return MedicineIntegration.findAll({raw: true, where: { idDrug1: arrDrugs[l], idDrug2: arrDrugs[i] }})
+    				return MedicineIntegration.findAll({raw: true, 	
+					where: {
+						[Op.or]: [
+						{[Op.and] : [
+						  {idDrug1: arrDrugs[l]},
+						  {idDrug2: arrDrugs[i]}
+						]},
+						{[Op.and] : [
+						  {idDrug1: arrDrugs[i]},
+						  {idDrug2: arrDrugs[l]}
+						]}
+						]
+					}})
 			        .then(function(newWarning){
 
 			        	// console.log('newWarning', newWarning)

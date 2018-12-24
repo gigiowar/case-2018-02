@@ -34,9 +34,9 @@
             <b-form-group label="Name">
               <b-form-input type="text" v-model="model.drugname"></b-form-input>
             </b-form-group>
-            <b-form-group label="Medicine ID">
-              <b-form-input type="text" v-model="model.medicineId"></b-form-input>
-            </b-form-group>  
+            <b-form-group label="Medicine">
+              <b-form-select v-model="model.idMedicine" :options="optionsMed" class="mb-3" />
+            </b-form-group>
             <div>
               <b-btn type="submit" variant="success">Save Drug</b-btn>
             </div>
@@ -56,6 +56,8 @@ export default {
       loading: false,
       drugs: [],
       model: {},
+      optionsMed: [],
+      medicines: [],
     };
   },
   async created() {
@@ -65,6 +67,15 @@ export default {
     async refreshDrugs() {
       this.loading = true;
       this.drugs = await api.getDrugs();
+      this.medicines = await api.getMedicines();
+      this.optionsMed = [];
+      this.medicines.map((med) => {
+        const obj = {};
+        obj.value = med.id;
+        obj.text = med.medname;
+        this.optionsMed.push(obj);
+        return true;
+      });
       this.loading = false;
     },
     async populateDrugToEdit(drug) {

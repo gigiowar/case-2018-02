@@ -1,7 +1,7 @@
 const env = {
   database: 'medical_prescription',
   username: 'root',
-  password: 'Gigio647633',
+  password: 'password@123',
   host: 'localhost',
   dialect: 'mysql',
   pool: {

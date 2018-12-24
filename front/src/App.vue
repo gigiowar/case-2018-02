@@ -8,8 +8,8 @@
           <b-nav-item to="/users">Users</b-nav-item>          
           <b-nav-item to="/medicines">Medicines</b-nav-item>
           <b-nav-item to="/drugs">Drugs</b-nav-item>
-          <b-nav-item to="/userMedicines">User Medicines</b-nav-item>
           <b-nav-item to="/medicineIntegrations">Medicine Integrations</b-nav-item>
+          <b-nav-item to="/userMedicines">User Medicines</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
